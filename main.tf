@@ -23,3 +23,28 @@ resource "vcd_vapp_org_network" "network" {
   vapp_name                 = vcd_vapp.vapp.name
   org_network_name          = each.value
 }
+
+resource "vcd_vapp_vm" "vm" {
+  
+  org                       = var.region.vdc.org
+  vdc                       = var.region.vdc.name
+  vapp_name                 = vcd_vapp.vapp.name
+  
+  catalog_name              = var.template.catalog
+  template_name             = var.template.name
+  
+  name                      = "pippo"
+  
+  cpus                      = 2
+  memory                    = 1024
+  
+  dynamic "network" {
+    for_each                = vcd_vapp_org_network.network[*].org_network_name
+    
+    content {
+      type                  = "org"
+      name                  = network.value
+      ip_allocation_mode    = "NONE"
+    }
+  }
+}
