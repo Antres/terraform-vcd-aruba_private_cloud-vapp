@@ -39,11 +39,11 @@ resource "vcd_vapp_vm" "vm" {
   memory                    = 1024
   
   dynamic "network" {
-    count                   = length(vcd_vapp_org_network.network)
+    for_each                   = [for network in vcd_vapp_org_network.network: network.org_network_name]
     
     content {
       type                  = "org"
-      name                  = vcd_vapp_org_network.network[count.index].org_network_name
+      name                  = each.value
       ip_allocation_mode    = "NONE"
     }
   }
