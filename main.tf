@@ -43,7 +43,7 @@ resource "vcd_vapp_vm" "vm" {
     
     content {
       type                  = "org"
-      name                  = each.value
+      name                  = network.value
       ip_allocation_mode    = "NONE"
     }
   }
