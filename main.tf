@@ -15,11 +15,11 @@ resource "vcd_vapp" "vapp" {
 }
 
 resource "vcd_vapp_org_network" "network" {
-  for_each                  = {for network in var.networks :  network.name => network}
+  for_each                  = var.networks
   
-  org                       = each.value.org
-  vdc                       = each.value.vdc
+  org                       = var.region.vdc.org
+  vdc                       = var.region.vdc.name
   
   vapp_name                 = vcd_vapp.vapp.name
-  org_network_name          = each.value.name
+  org_network_name          = each.value
 }
