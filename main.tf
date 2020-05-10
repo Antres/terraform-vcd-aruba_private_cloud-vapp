@@ -22,5 +22,5 @@ resource "vcd_vapp_org_network" "net" {
 
   vapp_name                 = vcd_vapp.vapp.name
 
-  org_network_name  = each.value.name
+  org_network_name  = each.value.network.name
 }
