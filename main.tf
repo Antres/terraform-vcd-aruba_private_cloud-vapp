@@ -44,6 +44,7 @@ resource "vcd_vapp_vm" "vm" {
     content {
       type                  = "org"
       name                  = network.value
+      adapter_type          = "VMXNET3"
       ip_allocation_mode    = "NONE"
     }
   }
