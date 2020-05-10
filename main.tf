@@ -39,7 +39,7 @@ resource "vcd_vapp_vm" "vm" {
   memory                    = 1024
   
   dynamic "network" {
-    for_each                = vcd_vapp_org_network.network[*].org_network_name
+    for_each                = toset(vcd_vapp_org_network.network[*].org_network_name)
     
     content {
       type                  = "org"
